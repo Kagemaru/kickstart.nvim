@@ -26,18 +26,42 @@ return {
   'jesseduffield/lazygit',
   'nvim-focus/focus.nvim',
   {
+    'folke/zen-mode.nvim',
+    opts = {
+      window = {
+        width = 0.8,
+      },
+    },
+    keys = {
+      { '<C-w>m', '<cmd>ZenMode<cr>', desc = 'Toggle ZenMode' },
+    },
+  },
+  {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
+      bufdelete = { enabled = true },
+      dashboard = { enabled = true },
+      debug = { enabled = true },
+      git = { enabled = true },
+      gitbrowse = { enabled = true },
+      lazygit = { enabled = true },
+      notify = { enabled = true },
       notifier = {
         enabled = true,
         timeout = 3000,
       },
+      profiler = { enabled = true },
       quickfile = { enabled = true },
+      rename = { enabled = true },
+      scratch = { enabled = true },
       statuscolumn = { enabled = true },
+      terminal = { enabled = true },
+      toggle = { enabled = true },
+      win = { enabled = true },
       words = { enabled = true },
       styles = {
         notification = {
@@ -178,4 +202,21 @@ return {
       })
     end,
   },
+  {
+    'leobeosab/brr.nvim',
+    opts = {
+      root = '~/org/obsidian/Notizen/zettelkasten/scratches',
+      style = {
+        width = 0.8,
+        height = 0.8,
+        title_padding = 2,
+      },
+    },
+    keys = {
+      { '<leader>,', '<cmd>Scratch scratch.md<cr>', desc = 'Open persistent scratch' },
+      { '<leader>.', '<cmd>Scratch<cr>', desc = 'Open daily scratch' },
+      { '<leader>f.', '<cmd>ScratchList<cr>', desc = 'Find scratch' },
+    },
+  },
+  'mg979/vim-visual-multi',
 }
