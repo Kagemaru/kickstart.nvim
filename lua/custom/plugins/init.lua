@@ -3,29 +3,17 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  'direnv/direnv.vim',
+  'jesseduffield/lazygit',
   'junegunn/fzf.vim',
-  {
-    'soywod/iris.vim',
-    init = function()
-      vim.g.iris_name = 'Thomas Burkhalter'
-      vim.g.iris_mail = 'burkhalter@puzzle.ch'
-      vim.g.iris_imap_host = 'imap.puzzle.ch'
-      vim.g.iris_imap_port = 993
-      vim.g.iris_imap_login = 'burkhalter@puzzle.ch'
-      vim.g.iris_imap_passwd_show_cmd = 'pass show sso'
-      vim.g.iris_smtp_host = 'smtp.puzzle.ch'
-      vim.g.iris_smtp_port = 587
-      vim.g.iris_smtp_login = 'burkhalter@puzzle.ch'
-      vim.g.iris_smtp_passwd_show_cmd = 'pass show sso'
-      vim.g.iris_download_dir = '~/Mail'
-    end,
-  },
+  'mg979/vim-visual-multi',
+  'nvim-focus/focus.nvim',
+  'tpope/vim-dispatch',
   'tpope/vim-rails',
   'vim-test/vim-test',
-  'tpope/vim-dispatch',
-  'jesseduffield/lazygit',
-  'nvim-focus/focus.nvim',
-  {
+  'samjwill/nvim-unception',
+
+  { --- ZenMode
     'folke/zen-mode.nvim',
     opts = {
       window = {
@@ -36,10 +24,11 @@ return {
       { '<C-w>m', '<cmd>ZenMode<cr>', desc = 'Toggle ZenMode' },
     },
   },
-  {
+  { --- Snacks
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    ---@module "snacks"
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
@@ -202,7 +191,7 @@ return {
       })
     end,
   },
-  {
+  { --- BRR
     'leobeosab/brr.nvim',
     opts = {
       root = '~/org/obsidian/Notizen/zettelkasten/scratches',
@@ -218,5 +207,4 @@ return {
       { '<leader>f.', '<cmd>ScratchList<cr>', desc = 'Find scratch' },
     },
   },
-  'mg979/vim-visual-multi',
 }
