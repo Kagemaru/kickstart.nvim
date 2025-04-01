@@ -9,6 +9,7 @@ return {
   'mg979/vim-visual-multi',
   'nvim-focus/focus.nvim',
   'samjwill/nvim-unception',
+  'tpope/vim-abolish',
   'tpope/vim-dispatch',
   'tpope/vim-rails',
   'vim-test/vim-test',
