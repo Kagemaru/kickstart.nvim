@@ -16,12 +16,12 @@ return {
   --   end,
   -- },
 
-  {
-    'pimalaya/himalaya-vim',
-    init = function()
-      local g = vim.g
-
-      g.himalaya_folder_picker_telescope_view = 1
-    end,
-  },
+  -- {
+  --   'pimalaya/himalaya-vim',
+  --   init = function()
+  --     local g = vim.g
+  --
+  --     g.himalaya_folder_picker_telescope_view = 1
+  --   end,
+  -- },
 }
