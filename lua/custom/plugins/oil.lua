@@ -6,8 +6,13 @@ return {
       require('oil').setup {
         colums = { 'icon' },
         keymaps = {
-          ['<C-h>'] = false,
-          ['<M-h>'] = 'actions.select_split',
+          ['<C-h>'] = '<C-w><C-h>',
+          ['<C-l>'] = '<C-w><C-l>',
+          ['<C-v>'] = { 'actions.select', opts = { vertical = true } },
+          ['<C-s>'] = { 'actions.select', opts = { horizontal = true } },
+          ['<C-r>'] = 'actions.refresh',
+          -- ['<C-h>'] = false,
+          -- ['<M-h>'] = 'actions.select_split',
         },
         view_options = {
           show_hidden = true,

@@ -404,11 +404,13 @@ require('lazy').setup({
         defaults = {
           mappings = {
             i = {
+              ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
               ['<C-t>'] = trouble.open,
               ['<C-d>'] = actions.delete_buffer,
               ['<C-Space>'] = actions.toggle_selection + actions.move_selection_better,
             },
             n = {
+              ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
               ['<C-t>'] = trouble.open,
               ['<C-d>'] = actions.delete_buffer,
               ['<C-Space>'] = actions.toggle_selection + actions.move_selection_better,

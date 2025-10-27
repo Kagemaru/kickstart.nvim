@@ -1,6 +1,10 @@
 return {
   'ahmedkhalf/project.nvim',
-  setup = {
-    patterns = { '.git', 'mix.exs', '.tool_versions' },
-  },
+  config = function()
+    require('telescope').load_extension 'projects'
+
+    require('project_nvim').setup {
+      patterns = { '.git', 'mix.exs', '.tool_versions' },
+    }
+  end,
 }

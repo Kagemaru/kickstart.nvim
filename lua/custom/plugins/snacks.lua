@@ -12,7 +12,10 @@ return {
       debug = { enabled = true },
       git = { enabled = true },
       gitbrowse = { enabled = true },
-      lazygit = { enabled = true },
+      lazygit = {
+        enabled = true,
+        configure = true,
+      },
       notify = { enabled = true },
       notifier = {
         enabled = true,

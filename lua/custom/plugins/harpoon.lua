@@ -64,7 +64,7 @@ return {
       desc = 'Go to previous harpoon mark',
     },
   },
-  config = {
+  opts = {
     menu = {
       width = vim.api.nvim_win_get_width(0) - 4,
       height = vim.api.nvim_win_get_height(0) - 8,
