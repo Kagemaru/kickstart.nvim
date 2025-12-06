@@ -643,6 +643,9 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        elixirls = {
+          cmd = { '/opt/elixir-ls/language_server.sh' },
+        },
 
         lua_ls = {
           -- cmd = {...},
