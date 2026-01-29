@@ -6,6 +6,10 @@ local vmap = function(keys, func, desc)
   vim.keymap.set('v', keys, func, { desc = desc })
 end
 
+nmap('<leader>tt', '<CMD>:terminal<CR>i', 'Open [T]erminal')
+nmap('<leader>tv', '<CMD>:vsplit +terminal<CR>i', 'Open [V]ertical Split Terminal')
+nmap('<leader>ts', '<CMD>:split +terminal<CR>i', 'Open Horizontal [S]plit Terminal')
+
 nmap('<leader>gf', '<CMD>e <cfile><CR>', 'Create and [G]o to [F]ile')
 nmap('<leader>vgf', '<CMD>vert sfind <Plug><cfile><CR>')
 
