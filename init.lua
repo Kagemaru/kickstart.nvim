@@ -114,7 +114,9 @@ vim.o.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -163,6 +165,10 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- Folding
+vim.o.foldmethod = 'syntax'
+vim.o.foldlevelstart = 1
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -227,7 +233,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function() vim.hl.on_yank() end,
+  callback = function()
+    vim.hl.on_yank()
+  end,
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -236,7 +244,9 @@ local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then error('Error cloning lazy.nvim:\n' .. out) end
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
 end
 
 ---@type vim.Option
@@ -318,8 +328,8 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle/[T]erminal' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      }
-    end,
+      },
+    },
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -353,7 +363,9 @@ require('lazy').setup({
 
         -- `cond` is a condition used to determine whether this plugin should be
         -- installed and loaded.
-        cond = function() return vim.fn.executable 'make' == 1 end,
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
@@ -403,6 +415,7 @@ require('lazy').setup({
         defaults = {
           mappings = {
             i = {
+              ['<C-Enter>'] = 'to_fuzzy_refine',
               ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
               ['<C-t>'] = trouble.open,
               ['<C-d>'] = actions.delete_buffer,
@@ -484,20 +497,17 @@ require('lazy').setup({
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set(
-        'n',
-        '<leader>s/',
-        function()
-          builtin.live_grep {
-            grep_open_files = true,
-            prompt_title = 'Live Grep in Open Files',
-          }
-        end,
-        { desc = '[S]earch [/] in Open Files' }
-      )
+      vim.keymap.set('n', '<leader>s/', function()
+        builtin.live_grep {
+          grep_open_files = true,
+          prompt_title = 'Live Grep in Open Files',
+        }
+      end, { desc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>sn', function()
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[S]earch [N]eovim files' })
     end,
   },
 
@@ -620,7 +630,9 @@ require('lazy').setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client:supports_method('textDocument/inlayHint', event.buf) then
-            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+            map('<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+            end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
@@ -646,26 +658,28 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-        elixirls = {
-          cmd = { '/opt/elixir-ls/language_server.sh' },
-        },
-
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
+        -- expert = {
+        --   cmd = { '~/bin/expert_linux_amd64' },
+        -- },
+        -- elixirls = {
+        --   cmd = { '/opt/elixir-ls/language_server.sh' },
+        -- },
+        --   lua_ls = {
+        --     -- cmd = {...},
+        --     -- filetypes = { ...},
+        --     -- capabilities = {},
+        --     settings = {
+        --       Lua = {
+        --         completion = {
+        --           callSnippet = 'Replace',
+        --         },
+        --         -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+        --         -- diagnostics = { disable = { 'missing-fields' } },
+        --       },
+        --     },
+        --   },
       }
-
+      --
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -675,9 +689,9 @@ require('lazy').setup({
       -- You can press `g?` for help in this menu.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'lua_ls', -- Lua Language server
-        'stylua', -- Used to format Lua code
-        'elixirls',
+        -- 'lua-language-server', -- Lua Language server
+        -- 'stylua',              -- Used to format Lua code
+        -- 'elixir-ls',
         -- You can add other tools here that you want Mason to install
       })
 
@@ -694,7 +708,9 @@ require('lazy').setup({
         on_init = function(client)
           if client.workspace_folders then
             local path = client.workspace_folders[1].name
-            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then
+              return
+            end
           end
 
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
@@ -715,6 +731,13 @@ require('lazy').setup({
         },
       })
       vim.lsp.enable 'lua_ls'
+
+      vim.lsp.config('expert', {
+        cmd = { 'expert', '--stdio' },
+        root_markers = { 'mix.exs', '.git' },
+        filetypes = { 'elixir', 'eelixir', 'heex' },
+      })
+      vim.lsp.enable 'expert'
     end,
   },
 
@@ -725,7 +748,9 @@ require('lazy').setup({
     keys = {
       {
         '<leader>bf',
-        function() require('conform').format { async = true, lsp_fallback = true } end,
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end,
         mode = '',
         desc = '[F]ormat buffer',
       },
@@ -770,7 +795,9 @@ require('lazy').setup({
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
           -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+            return
+          end
           return 'make install_jsregexp'
         end)(),
         dependencies = {
@@ -831,7 +858,7 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets' },
+        default = { 'lsp', 'path', 'snippets', 'omni' },
       },
 
       snippets = { preset = 'luasnip' },
@@ -905,7 +932,9 @@ require('lazy').setup({
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function() return '%2l:%-2v' end
+      statusline.section_location = function()
+        return '%2l:%-2v'
+      end
 
       -- ... and there is more!
       --  Check out: https://github.com/nvim-mini/mini.nvim
@@ -914,13 +943,56 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    branch = 'master',
+    main = 'nvim-treesitter.configs',
+    opts = {
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'elixir',
+        'eex',
+        'erb',
+        'heex',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'ruby',
+        'vim',
+        'vimdoc',
+        'yaml',
+      },
+    },
+    auto_install = true,
+    sync_install = false,
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = { 'ruby' },
+    },
+    incremental_selection = { enable = true },
+    indent = { enable = true, disable = { 'ruby' } },
+    endwise = { enable = true },
     config = function()
-      local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
-      require('nvim-treesitter').install(filetypes)
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = filetypes,
-        callback = function() vim.treesitter.start() end,
-      })
+      -- local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
+      -- -- { 'bash', 'c', 'diff', 'elixir', 'eex', 'heex', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
+      -- require('nvim-treesitter').install(filetypes)
+      -- vim.api.nvim_create_autocmd('FileType', {
+      --   pattern = filetypes,
+      --   callback = function()
+      --     vim.treesitter.start()
+      --   end,
+      -- })
+
+      -- require('nvim-treesitter.configs').setup {
+      --   ensure_installed = { 'elixir', 'eex', 'heex', 'ruby', 'erb' },
+      --   highlight = { enable = true },
+      --   indent = { enable = true },
+      -- }
 
       -- highlight = {
       --   enable = true,
@@ -930,7 +1002,6 @@ require('lazy').setup({
       --   additional_vim_regex_highlighting = { 'ruby' },
       -- },
       -- indent = { enable = true, disable = { 'ruby' } },
-
     end,
   },
 
@@ -984,6 +1055,25 @@ require('lazy').setup({
 require 'custom.keymaps'
 
 vim.diagnostic.config { virtual_lines = true }
+
+vim.g.projectionist_heuristics = {
+  ['Gemfile'] = {
+    ['app/controllers/*_controller.rb'] = {
+      ['type'] = 'controller',
+      ['alternate'] = 'spec/requests/{}_spec.rb',
+    },
+    ['app/models/*.rb'] = {
+      ['type'] = 'model',
+      ['alternate'] = 'spec/models/{}_spec.rb',
+    },
+    ['app/views/*'] = {
+      ['type'] = 'view',
+    },
+    ['config/routes.rb'] = {
+      ['type'] = 'route',
+    },
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

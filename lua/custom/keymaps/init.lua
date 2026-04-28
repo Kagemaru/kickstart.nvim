@@ -26,3 +26,6 @@ vmap('<leader>dg3', '<CMD>diffget 2<CR>', 'Get change to third buffer')
 vmap('<leader>dp1', '<CMD>diffput 1<CR>', 'Put change to first buffer')
 vmap('<leader>dp2', '<CMD>diffput 2<CR>', 'Put change to second buffer')
 vmap('<leader>dp3', '<CMD>diffput 2<CR>', 'Put change to third buffer')
+
+nmap('<C-S-l>', '<CMD>tabnext<CR>', 'Next Tab')
+nmap('<C-S-h>', '<CMD>tabprev<CR>', 'Previous Tab')
