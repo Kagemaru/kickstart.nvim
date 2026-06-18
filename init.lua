@@ -470,6 +470,7 @@ require('lazy').setup({
           -- This is where a variable was first declared, or where a function is defined, etc.
           -- To jump back, press <C-t>.
           vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
+          vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
 
           -- Fuzzy find all the symbols in your current document.
           -- Symbols are things like variables, functions, types, etc.
@@ -738,6 +739,12 @@ require('lazy').setup({
         filetypes = { 'elixir', 'eelixir', 'heex' },
       })
       vim.lsp.enable 'expert'
+
+      vim.lsp.config('ruby_lsp', {
+        cmd = { 'bundle', 'exec', 'ruby-lsp' },
+        root_markers = { 'Gemfile', '.git' },
+      })
+      vim.lsp.enable 'ruby_lsp'
     end,
   },
 
@@ -941,7 +948,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Highlight, edit, and navigate code
+  { -- New Treesitter config
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
@@ -994,16 +1001,69 @@ require('lazy').setup({
       --   indent = { enable = true },
       -- }
 
-      -- highlight = {
-      --   enable = true,
-      --   -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-      --   --  If you are experiencing weird indenting issues, add the language to
-      --   --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-      --   additional_vim_regex_highlighting = { 'ruby' },
-      -- },
-      -- indent = { enable = true, disable = { 'ruby' } },
-    end,
-  },
+  -- { -- Highlight, edit, and navigate code
+  --   'nvim-treesitter/nvim-treesitter',
+  --   lazy = false,
+  --   build = ':TSUpdate',
+  --   branch = 'main',
+  --   main = 'nvim-treesitter.configs',
+  --   opts = {
+  --     ensure_installed = {
+  --       'bash',
+  --       'c',
+  --       'diff',
+  --       'elixir',
+  --       'eex',
+  --       'erb',
+  --       'heex',
+  --       'html',
+  --       'lua',
+  --       'luadoc',
+  --       'markdown',
+  --       'markdown_inline',
+  --       'query',
+  --       'ruby',
+  --       'vim',
+  --       'vimdoc',
+  --       'yaml',
+  --     },
+  --   },
+  --   auto_install = true,
+  --   sync_install = false,
+  --   highlight = {
+  --     enable = true,
+  --     additional_vim_regex_highlighting = { 'ruby' },
+  --   },
+  --   incremental_selection = { enable = true },
+  --   indent = { enable = true, disable = { 'ruby' } },
+  --   endwise = { enable = true },
+  --   config = function()
+  --     -- local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
+  --     -- -- { 'bash', 'c', 'diff', 'elixir', 'eex', 'heex', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
+  --     -- require('nvim-treesitter').install(filetypes)
+  --     -- vim.api.nvim_create_autocmd('FileType', {
+  --     --   pattern = filetypes,
+  --     --   callback = function()
+  --     --     vim.treesitter.start()
+  --     --   end,
+  --     -- })
+  --
+  --     -- require('nvim-treesitter.configs').setup {
+  --     --   ensure_installed = { 'elixir', 'eex', 'heex', 'ruby', 'erb' },
+  --     --   highlight = { enable = true },
+  --     --   indent = { enable = true },
+  --     -- }
+  --
+  --     -- highlight = {
+  --     --   enable = true,
+  --     --   -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+  --     --   --  If you are experiencing weird indenting issues, add the language to
+  --     --   --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+  --     --   additional_vim_regex_highlighting = { 'ruby' },
+  --     -- },
+  --     -- indent = { enable = true, disable = { 'ruby' } },
+  --   end,
+  -- },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
