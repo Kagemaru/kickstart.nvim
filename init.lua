@@ -950,56 +950,9 @@ require('lazy').setup({
 
   { -- New Treesitter config
     'nvim-treesitter/nvim-treesitter',
-    lazy = false,
+    branch = 'main',
     build = ':TSUpdate',
-    branch = 'master',
-    main = 'nvim-treesitter.configs',
-    opts = {
-      ensure_installed = {
-        'bash',
-        'c',
-        'diff',
-        'elixir',
-        'eex',
-        'erb',
-        'heex',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'query',
-        'ruby',
-        'vim',
-        'vimdoc',
-        'yaml',
-      },
-    },
-    auto_install = true,
-    sync_install = false,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = { 'ruby' },
-    },
-    incremental_selection = { enable = true },
-    indent = { enable = true, disable = { 'ruby' } },
-    endwise = { enable = true },
-    config = function()
-      -- local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
-      -- -- { 'bash', 'c', 'diff', 'elixir', 'eex', 'heex', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'ruby', 'vim', 'vimdoc' }
-      -- require('nvim-treesitter').install(filetypes)
-      -- vim.api.nvim_create_autocmd('FileType', {
-      --   pattern = filetypes,
-      --   callback = function()
-      --     vim.treesitter.start()
-      --   end,
-      -- })
-
-      -- require('nvim-treesitter.configs').setup {
-      --   ensure_installed = { 'elixir', 'eex', 'heex', 'ruby', 'erb' },
-      --   highlight = { enable = true },
-      --   indent = { enable = true },
-      -- }
+  },
 
   -- { -- Highlight, edit, and navigate code
   --   'nvim-treesitter/nvim-treesitter',
