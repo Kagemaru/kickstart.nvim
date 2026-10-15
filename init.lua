@@ -659,9 +659,7 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-        -- expert = {
-        --   cmd = { '~/bin/expert_linux_amd64' },
-        -- },
+        expert = {},
         -- elixirls = {
         --   cmd = { '/opt/elixir-ls/language_server.sh' },
         -- },
@@ -732,13 +730,6 @@ require('lazy').setup({
         },
       })
       vim.lsp.enable 'lua_ls'
-
-      vim.lsp.config('expert', {
-        cmd = { 'expert', '--stdio' },
-        root_markers = { 'mix.exs', '.git' },
-        filetypes = { 'elixir', 'eelixir', 'heex' },
-      })
-      vim.lsp.enable 'expert'
 
       vim.lsp.config('ruby_lsp', {
         cmd = { 'bundle', 'exec', 'ruby-lsp' },
